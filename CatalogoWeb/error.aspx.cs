@@ -11,7 +11,19 @@ namespace CatalogoWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+			try
+			{
+				if (Session["error"]!= null)
+				{
+					lblMensaje.Text = Session["error"].ToString();
+				}
+			}
+			catch (Exception ex)
+			{
 
+				Session.Add("error", ex.ToString());
+				Response.Redirect("erros.aspx", false);
+			}
         }
     }
 }

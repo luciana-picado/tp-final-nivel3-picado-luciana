@@ -70,7 +70,25 @@ namespace negocio
                 throw ex;
             }
         }
-         
 
+        public void cerrarConexion()
+        {
+            try
+            {
+                if (lector != null)
+                    lector.Close();
+                conexion.Close();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+         
+        public void setearParametro(string nombre, object valor)
+        {
+            comando.Parameters.AddWithValue(nombre, valor);
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using dominio;
+using negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,8 +12,11 @@ namespace CatalogoWeb
     public partial class _default : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        {
-
+        {   
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            List<Articulos> lista = negocio.listar();
+            repRepeater.DataSource = lista;
+            repRepeater.DataBind();
         }
     }
 }

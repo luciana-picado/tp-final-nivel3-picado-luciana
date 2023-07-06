@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace negocio
 {
-    internal class ArticuloNegocio
+    public class ArticuloNegocio
     {
+
     }
 }

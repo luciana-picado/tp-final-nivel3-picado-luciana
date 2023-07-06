@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace dominio
 {
-    internal class Favoritos
+    public class Favoritos
     {
+        public int Id { get; set; }
+        public int IdUser { get; set; }
+        public int IdArticulo { get; set; }
     }
 }

@@ -76,6 +76,7 @@
     <Content Include="favoritos.aspx" />
     <Content Include="lista.aspx" />
     <Content Include="logIn.aspx" />
+    <Content Include="olvidoPass.aspx" />
     <Content Include="perfil.aspx" />
     <Content Include="registro.aspx" />
     <Content Include="Web.config" />
@@ -130,6 +131,13 @@
     <Compile Include="main.Master.designer.cs">
       <DependentUpon>main.Master</DependentUpon>
     </Compile>
+    <Compile Include="olvidoPass.aspx.cs">
+      <DependentUpon>olvidoPass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="olvidoPass.aspx.designer.cs">
+      <DependentUpon>olvidoPass.aspx</DependentUpon>
+    </Compile>
     <Compile Include="perfil.aspx.cs">
       <DependentUpon>perfil.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -169,6 +177,9 @@
       <Project>{5c7518bd-6d5d-48ba-8385-b0bccddd285d}</Project>
       <Name>negocio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Imagenes\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

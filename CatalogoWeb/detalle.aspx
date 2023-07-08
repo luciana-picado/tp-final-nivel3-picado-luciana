@@ -2,10 +2,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .validar{
-            color:red;
-            font-size:12px;
-            font:italic;
+        .validar {
+            color: red;
+            font-size: 12px;
+            font: italic;
         }
     </style>
 </asp:Content>
@@ -21,19 +21,19 @@
             <div class="mb-3">
                 <label for="txtNombre" class="form-label">Nombre</label>
                 <asp:TextBox ID="txtNombre" CssClass="form-control" runat="server"></asp:TextBox>
-                <asp:Label ID="lblErrorNombre" CssClass="validar" runat="server" Text="Debe ingresar un nombre" Visible="false"></asp:Label>
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtNombre" ErrorMessage="Debe ingresar un nombre" CssClass="validar"></asp:RequiredFieldValidator>
+
             </div>
             <div class="mb-3">
                 <label for="txtCodigo" class="form-label">Codigo</label>
-                <asp:TextBox ID="txtCodigo"  CssClass="form-control" runat="server"></asp:TextBox>
-                <asp:Label ID="lblErrorCodigo" CssClass="validar" runat="server" Text="Debe ingresar un codigo" Visible="false"></asp:Label>
+                <asp:TextBox ID="txtCodigo" CssClass="form-control" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtCodigo" ErrorMessage="Debe ingresar un codigo" CssClass="validar"></asp:RequiredFieldValidator>
 
             </div>
             <div class="mb-3">
                 <label for="txtPrecio" class="form-label">Precio</label>
                 <asp:TextBox ID="txtPrecio" CssClass="form-control" runat="server"></asp:TextBox>
-                <asp:Label ID="lblErrorPrecio" CssClass="validar" runat="server" Text="Debe ingresar un precio" Visible="false"></asp:Label>
-
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPrecio" ErrorMessage="Debe ingresar un precio" CssClass="validar"></asp:RequiredFieldValidator>
             </div>
             <div class="mb-3">
                 <label for="ddlMarca" class="form-label">Marca</label>
@@ -65,10 +65,11 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
             <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                <asp:Button Visible="false" ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" OnClick="btnEliminar_Click" />
                 <div>
+                    <asp:Button ID="btnEliminarDesea" OnClick="btnEliminarDesea_Click" Visible="false" CssClass="btn btn-danger" runat="server" Text="Eliminar" />
                     <asp:Label ID="lblEliminar" runat="server" Text="¿Desea eliminar permanentemente este articulo?" CssClass="form-label"></asp:Label>
-                    <asp:CheckBox Text="Eliminar" ID="ckbEliminar" CssClass="btn btn-outline-danger" runat="server" />
+                    <asp:CheckBox ID="ckbEliminar" AutoPostBack="true" OnCheckedChanged="ckbEliminar_CheckedChanged" runat="server" />
+                    <asp:Button ID="btnEliminar" Visible="false" CssClass="btn btn-outline-danger" OnClick="btnEliminar_Click1" runat="server" Text="Eliminar" />
                 </div>
             </div>
         </div>

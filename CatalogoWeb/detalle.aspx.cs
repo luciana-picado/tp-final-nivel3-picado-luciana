@@ -78,25 +78,7 @@ namespace CatalogoWeb
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : null;
                 Articulos nuevo = new Articulos();
                 ArticuloNegocio negocio = new ArticuloNegocio();
-                if ((string.IsNullOrEmpty(txtNombre.Text)) || (string.IsNullOrEmpty(txtCodigo.Text)) || (string.IsNullOrEmpty(txtPrecio.Text)))
-                {
-                    if (string.IsNullOrEmpty(txtNombre.Text))
-
-                        lblErrorNombre.Visible = true;
-
-                    else
-                        lblErrorNombre.Visible = false;
-                    if (string.IsNullOrEmpty(txtCodigo.Text))
-                        lblErrorCodigo.Visible = true;
-                    else
-                        lblErrorCodigo.Visible = false;
-                    if (string.IsNullOrEmpty(txtPrecio.Text))
-                        lblErrorPrecio.Visible = true;
-                    else
-                        lblErrorPrecio.Visible = false;
-                }
-                else
-                {
+                
                     nuevo.Nombre = txtNombre.Text;
                     nuevo.Codigo = txtCodigo.Text;
                     nuevo.Precio = decimal.Parse(txtPrecio.Text);
@@ -112,11 +94,10 @@ namespace CatalogoWeb
                         negocio.modificar(nuevo);
                     }
 
-                    if (!((string.IsNullOrEmpty(txtNombre.Text)) && (string.IsNullOrEmpty(txtCodigo.Text)) && (string.IsNullOrEmpty(txtPrecio.Text))))
-                        negocio.agregar(nuevo);
-                }
+                if (!((string.IsNullOrEmpty(txtNombre.Text)) && (string.IsNullOrEmpty(txtCodigo.Text)) && (string.IsNullOrEmpty(txtPrecio.Text))))
+                    negocio.agregar(nuevo);
+                    Response.Redirect("default.aspx", false);
 
-                Response.Redirect("default.aspx", false);
             }
             catch (Exception ex)
             {
@@ -134,9 +115,7 @@ namespace CatalogoWeb
 
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
                 ArticuloNegocio negocio = new ArticuloNegocio();
-                Articulos seleccionado = (negocio.listarConID(id))[0];
-
-                btnEliminar.Visible = true;
+                btnEliminarDesea.Visible = true;
                 txtNombre.Enabled = true;
                 txtCodigo.Enabled = true;
                 txtPrecio.Enabled = true;
@@ -146,7 +125,6 @@ namespace CatalogoWeb
                 ddlCategoria.Enabled = true;
                 btnModificar.Enabled = false;
                 btnAceptar.Enabled = true;
-
             }
             catch (Exception ex)
             {
@@ -156,29 +134,7 @@ namespace CatalogoWeb
             }
         }
 
-        protected void btnEliminar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ckbEliminar.Visible = true;
-                lblEliminar.Visible = true;
-                string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
-                ArticuloNegocio negocio = new ArticuloNegocio();
-                Articulos seleccionado = (negocio.listarConID(id))[0];
-                if (ckbEliminar.Checked)
-                {
-                    negocio.eliminar(int.Parse(id));
-                    Response.Redirect("default.aspx", false);
-                }
-
-            }
-            catch (Exception ex)
-            {
-
-                Session.Add("error", ex.ToString());
-                Response.Redirect("Error.aspx", false);
-            }
-        }
+    
 
         protected void txtImagen_TextChanged(object sender, EventArgs e)
         {
@@ -193,6 +149,41 @@ namespace CatalogoWeb
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
+        }
+
+        protected void btnEliminar_Click1(object sender, EventArgs e)
+        {
+            try
+            {
+                string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                if (ckbEliminar.Checked)
+                {
+                    negocio.eliminar(int.Parse(id));
+                    Response.Redirect("default.aspx", false);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("error", ex.ToString());
+                Response.Redirect("error.aspx", false);
+            }
+        }
+
+        protected void btnEliminarDesea_Click(object sender, EventArgs e)
+        {
+            lblEliminar.Visible= true;
+            ckbEliminar.Visible = true;
+                        btnEliminarDesea.Visible = false;
+        }
+
+        protected void ckbEliminar_CheckedChanged(object sender, EventArgs e)
+        {
+            btnEliminar.Visible = true;
+            lblEliminar.Visible = true;
+            ckbEliminar.Visible = true;
         }
     }
 }

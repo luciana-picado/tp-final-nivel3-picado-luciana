@@ -192,38 +192,11 @@ namespace CatalogoWeb
             }
         }
 
-        protected void dgvArticulos_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            try
-            {
-                dgvArticulos.PageIndex = e.NewPageIndex;
-                dgvArticulos.DataBind();
-            }
-            catch (Exception ex)
-            {
-
-                Session.Add("error", ex.ToString());
-                Response.Redirect("error.aspx", false);
-            }
-        }
-
         protected void btnRefrescar_Click(object sender, EventArgs e)
         {
             try
             {
-                List<Articulos> lista = (List<Articulos>)Session["listaArticulos"];
-                List<Articulos> listaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltroRapido.Text.ToUpper()) || x.Descripcion.ToUpper().Contains(txtFiltroRapido.Text.ToUpper()) || x.Precio.ToString().Contains(txtFiltroRapido.Text));
-                if (txtFiltroRapido.Text == "")
-                {
-                    dgvArticulos.DataSource = lista;
-                    dgvArticulos.DataBind();
-                }
-                else
-                {
-                    dgvArticulos.DataSource = listaFiltrada;
-                    dgvArticulos.DataBind();
-                }
-
+                Response.Redirect("lista.aspx", false);
             }
             catch (Exception ex)
             {

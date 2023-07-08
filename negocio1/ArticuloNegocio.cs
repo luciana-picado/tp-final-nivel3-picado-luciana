@@ -13,89 +13,43 @@ namespace negocio
     public class ArticuloNegocio
     {
         AccesoADatos datos = new AccesoADatos();
-        //public List<Articulos> listar()
-        //{
-        //    try
-        //    {
-        //        List<Articulos> lista = new List<Articulos>();
-        //        Articulos art = new Articulos();
-        //        datos.setearConsulta("select codigo, nombre, a.descripcion as Descripcion, imagenurl, m.Descripcion as Marca , c.Descripcion as categoria, precio, a.Id from ARTICULOS a, CATEGORIAS c, MARCAS m where a.IdMarca=m.id and a.IdCategoria=c.Id");
-        //        datos.ejecutarLectura();
-        //        while (datos.Lector.Read())
-        //        {
-        //            art.Id = (int)datos.Lector["Id"];
-        //            art.Codigo = (string)datos.Lector["Codigo"];
-        //            art.Nombre = (string)datos.Lector["Nombre"];
-        //            art.Descripcion = (string)datos.Lector["Descripcion"];
-        //            art.Marca = new Marcas();
-        //            art.Marca.Id = (int)datos.Lector["Id"];
-        //            art.Marca.Descripcion = (string)datos.Lector["Marca"];
-        //            art.Categoria = new Categorias();
-        //            art.Categoria.Id = (int)datos.Lector["Id"];
-        //            art.Categoria.Descripcion = (string)datos.Lector["Categoria"];
-        //            art.Precio = (decimal)datos.Lector["Precio"];
-        //            if (!(string.IsNullOrEmpty((string)datos.Lector["ImagenUrl"])))
-        //                art.ImagenUrl = (string)datos.Lector["ImagenUrl"];
-
-        //            lista.Add(art);
-        //        }
-        //        return lista;
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        datos.cerrarConexion();
-        //    }
-        //}
         public List<Articulos> listar()
         {
-            List<Articulos> lista = new List<Articulos>();
-            SqlConnection conexion = new SqlConnection();
-            SqlCommand comando = new SqlCommand();
-            SqlDataReader lector;
-
             try
             {
-                conexion.ConnectionString = "server=.\\SQLEXPRESS; database=CATALOGO_WEB_DB; integrated security=true";
-                comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "select codigo, nombre, a.descripcion as Descripcion, imagenurl, m.Descripcion as Marca , c.Descripcion as categoria, m.id, c.id, precio, a.Id from ARTICULOS a, CATEGORIAS c, MARCAS m where a.IdMarca=m.id and a.IdCategoria=c.Id ";
-                comando.Connection = conexion;
-                conexion.Open();
-                lector = comando.ExecuteReader();
-                while (lector.Read())
+                List<Articulos> lista = new List<Articulos>();
+                datos.setearConsulta("select codigo, nombre, a.descripcion as Descripcion, imagenurl, m.Descripcion as Marca , c.Descripcion as categoria, m.id, c.id, precio, a.Id from ARTICULOS a, CATEGORIAS c, MARCAS m where a.IdMarca=m.id and a.IdCategoria=c.Id ");
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
                 {
-                    Articulos art = new Articulos();
-                    art.Id = (int)lector["Id"];
-                    art.Codigo = (string)lector["Codigo"];
-                    art.Nombre = (string)lector["Nombre"];
-                    art.Descripcion = (string)lector["Descripcion"];
+                Articulos art = new Articulos();
+                    art.Id = (int)datos.Lector["Id"];
+                    art.Codigo = (string)datos.Lector["Codigo"];
+                    art.Nombre = (string)datos.Lector["Nombre"];
+                    art.Descripcion = (string)datos.Lector["Descripcion"];
                     art.Marca = new Marcas();
-                    art.Marca.Id = (int)lector["Id"];
-                    art.Marca.Descripcion = (string)lector["Marca"];
+                    art.Marca.Id = (int)datos.Lector["Id"];
+                    art.Marca.Descripcion = (string)datos.Lector["Marca"];
                     art.Categoria = new Categorias();
-                    art.Categoria.Id = (int)lector["Id"];
-                    art.Categoria.Descripcion = (string)lector["Categoria"];
-                    art.Precio = (decimal)lector["Precio"];
-                    if (!(string.IsNullOrEmpty((string)lector["ImagenUrl"])))
-                        art.ImagenUrl = (string)lector["ImagenUrl"];
+                    art.Categoria.Id = (int)datos.Lector["Id"];
+                    art.Categoria.Descripcion = (string)datos.Lector["Categoria"];
+                    art.Precio = (decimal)datos.Lector["Precio"];
+                    if (!(string.IsNullOrEmpty((string)datos.Lector["ImagenUrl"])))
+                        art.ImagenUrl = (string)datos.Lector["ImagenUrl"];
 
                     lista.Add(art);
                 }
-                conexion.Close();
                 return lista;
-
-
             }
             catch (Exception ex)
             {
 
                 throw ex;
             }
-
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
 
         public List<Articulos> listarConID(string id = "")
@@ -103,7 +57,6 @@ namespace negocio
             try
             {
                 List<Articulos> lista = new List<Articulos>();
-                Articulos art = new Articulos();
                 string consulta = "select codigo, nombre, a.descripcion as Descripcion, imagenurl, m.Descripcion as Marca, m.id, c.id , c.Descripcion as categoria, precio, a.Id from ARTICULOS a, CATEGORIAS c, MARCAS m where a.IdMarca=m.id and a.IdCategoria=c.Id ";
                 if (id != null)
                 {
@@ -113,6 +66,7 @@ namespace negocio
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
+                Articulos art = new Articulos();
                     art.Id = (int)datos.Lector["Id"];
                     art.Codigo = (string)datos.Lector["Codigo"];
                     art.Nombre = (string)datos.Lector["Nombre"];

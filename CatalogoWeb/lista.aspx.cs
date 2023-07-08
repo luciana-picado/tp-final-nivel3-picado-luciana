@@ -17,12 +17,12 @@ namespace CatalogoWeb
         {
             try
             {
-                //object user = (Users)Session["trainee"];
-                //if (!(seguridad.esAdmin(user)))
-                //{
-                //    Session.Add("error", "Debes ser usuario administrador para ingresar a este sitio");
-                //    Response.Redirect("Error.aspx", false);
-                //}
+                object user = (Users)Session["user"];
+                if (!(Seguridad.esAdmin(user)))
+                {
+                    Session.Add("error", "Debes ser usuario administrador para ingresar a este sitio");
+                    Response.Redirect("error.aspx", false);
+                }
                 if (!IsPostBack)
                 {
                     ArticuloNegocio negocio = new ArticuloNegocio();

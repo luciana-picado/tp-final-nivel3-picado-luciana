@@ -9,7 +9,9 @@ namespace dominio
     public class Favoritos
     {
         public int Id { get; set; }
-        public int IdUser { get; set; }
-        public int IdArticulo { get; set; }
+        public Users User { get; set; }
+        public Articulos Articulo { get; set; }
+        public Marcas Marca { get; set; }
+        public Categorias Categoria { get; set; }
     }
 }

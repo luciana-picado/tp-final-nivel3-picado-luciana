@@ -32,7 +32,7 @@
                     <h4 class="fst-italic">Precio</h4>
                     <asp:Label ID="lblPrecio" CssClass="fst-normal" runat="server"></asp:Label>
                 </div>
-                <asp:Button ID="btnFav" OnClick="btnFav_Click" runat="server" CssClass="btn btn-success" Text=" Añadir a favoritos ♥" />
+                <asp:Button ID="btnFav" OnClick="btnFav_Click" runat="server" />
             </div>
         </div>
 

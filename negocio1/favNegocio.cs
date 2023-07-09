@@ -46,13 +46,11 @@ namespace negocio
 
         }
 
-        public void añadirFav(int idart, int iduser)
+        public void añadirFav(string idart, string iduser)
         {
             try
             {
-                datos.setearConsulta("insert into favoritos (iduser, idarticulo ) values (@iduser, @idart)");
-                datos.setearParametro("@iduser", iduser);
-                datos.setearParametro("@idart", idart);
+                datos.setearConsulta("insert into favoritos (iduser, idarticulo ) values ("+iduser+", "+idart+")");
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -66,13 +64,11 @@ namespace negocio
             }
 
         }
-        public void quitarFav(int iduser, int idart)
+        public void quitarFav(string iduser, string idart)
         {
             try
             {
-                datos.setearConsulta("delete from favoritos where idarticulo = @idart and iduser=@iduser");
-                datos.setearParametro("@idart", idart);
-                datos.setearParametro("@iduser", iduser);
+                datos.setearConsulta("delete from favoritos where idarticulo ="+idart+" and iduser="+iduser);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -82,19 +78,15 @@ namespace negocio
             }
             finally { datos.cerrarConexion(); }
         }
-        public bool consultarId(int id)
+        public bool consultarId(string iduser, string idart)
         {
             try
             {
-                datos.setearConsulta("select f.id from favoritos f,articulos ,users u where iduser=@id and u.id=@id");
-                datos.setearParametro("@id", id);
+                datos.setearConsulta("select id from favoritos where idarticulo="+idart+" and iduser=" +iduser);
                 datos.ejecutarLectura();
-                if (datos.Lector.Read())
-                {
-                    return true;
-                }
-                return false;
-
+                if(datos.Lector.Read())
+                return true;
+                else return false;
             }
             catch (Exception ex)
             {
